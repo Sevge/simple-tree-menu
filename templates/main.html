@@ -1,0 +1,50 @@
+{% load static %}
+{% load mptt_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tree_display</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.staticfile.org/foundation/5.5.3/css/foundation.min.css">
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/foundation/5.5.3/js/foundation.min.js"></script>
+    <script src="https://cdn.staticfile.org/foundation/5.5.3/js/vendor/modernizr.js"></script>
+</head>
+<body>
+{#{% recursetree nodes %}#}
+{#    <li>#}
+{#        {{ node.name }}#}
+{#        <a href="delete/{{ node.id }}">删除该节点</a>#}
+{#        <a href="add/{{ node.id }}">新增节点</a>#}
+{#        <ul>#}
+{#            {{ children }}#}
+{#        </ul>#}
+{#    </li>#}
+{#{% endrecursetree %}#}
+<a href="add/0">新增根节点</a><hr>
+{% recursetree nodes %}
+    <ul class="accordion" data-accordion>
+        <li class="accordion-navigation">
+            <a href="#{{ node.name }}">{{ node.name }}</a>
+                <div><a href="delete/{{ node.id }}">删除该节点</a></div>
+                <div><a href="add/{{ node.id }}">在该节点下新增节点</a></div>
+                <hr>
+                <div id="{{ node.name }}" class="content">
+                    <ul>
+                        {{ children }}
+                    </ul>
+                </div>
+        </li>
+    </ul>
+{% endrecursetree %}
+
+<script>
+    $(document).ready(function () {
+        $(document).foundation();
+    })
+</script>
+
+</body>
+</html>
